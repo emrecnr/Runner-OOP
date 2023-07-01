@@ -1,8 +1,10 @@
 using RunnerOOP.Abstracts.Inputs;
 using RunnerOOP.Inputs;
+using RunnerOOP.Managers;
 using RunnerOOP.Movements;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,12 +39,18 @@ namespace RunnerOOP.Controllers
             {
                 _jump.Jumping();
             }
-            
-
-
-
-
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.GetComponent<EnemyController>())
+            {
+                GameManager.Instance.StopGame();
+            }
+        }
+
+
+
     }
 
 
