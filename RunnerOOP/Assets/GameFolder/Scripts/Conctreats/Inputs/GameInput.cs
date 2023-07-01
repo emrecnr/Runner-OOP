@@ -37,6 +37,15 @@ namespace RunnerOOP.Inputs
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""d216bcd3-e5a2-4e3f-8867-96466c06c10d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -72,6 +81,17 @@ namespace RunnerOOP.Inputs
                     ""action"": ""HorizontalMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11f4f492-bfa3-49bb-a5aa-e940e8cc685b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -81,6 +101,7 @@ namespace RunnerOOP.Inputs
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_HorizontalMove = m_Player.FindAction("HorizontalMove", throwIfNotFound: true);
+            m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -143,11 +164,13 @@ namespace RunnerOOP.Inputs
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_HorizontalMove;
+        private readonly InputAction m_Player_Jump;
         public struct PlayerActions
         {
             private @GameInput m_Wrapper;
             public PlayerActions(@GameInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @HorizontalMove => m_Wrapper.m_Player_HorizontalMove;
+            public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -160,6 +183,9 @@ namespace RunnerOOP.Inputs
                 @HorizontalMove.started += instance.OnHorizontalMove;
                 @HorizontalMove.performed += instance.OnHorizontalMove;
                 @HorizontalMove.canceled += instance.OnHorizontalMove;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -167,6 +193,9 @@ namespace RunnerOOP.Inputs
                 @HorizontalMove.started -= instance.OnHorizontalMove;
                 @HorizontalMove.performed -= instance.OnHorizontalMove;
                 @HorizontalMove.canceled -= instance.OnHorizontalMove;
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -187,6 +216,7 @@ namespace RunnerOOP.Inputs
         public interface IPlayerActions
         {
             void OnHorizontalMove(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
         }
     }
 }

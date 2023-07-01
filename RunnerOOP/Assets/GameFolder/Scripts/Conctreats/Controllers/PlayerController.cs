@@ -28,17 +28,20 @@ namespace RunnerOOP.Controllers
         {
             
             _mover.Move(_inputs.Horizontal);
-            Debug.Log(_inputs.Horizontal);
+            Debug.Log(_inputs.IsJump);
             
         }
         private void FixedUpdate()
         {
-            
+            if (_inputs.IsJump)
+            {
+                _jump.Jumping();
+            }
             
 
-            //_jump.Jumping();
-            
-            
+
+
+
         }
     }
 

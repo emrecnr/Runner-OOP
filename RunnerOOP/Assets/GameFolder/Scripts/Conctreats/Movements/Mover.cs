@@ -16,7 +16,7 @@ namespace RunnerOOP.Movements
         public void Move(float horizontalInput)
         {
             if (horizontalInput==0) { return; }
-            _playerController.transform.Translate(Vector3.right*_moveSpeed*Time.deltaTime);
+            _playerController.transform.Translate(Vector3.right*horizontalInput*_moveSpeed*Time.deltaTime);
         }
     }
 

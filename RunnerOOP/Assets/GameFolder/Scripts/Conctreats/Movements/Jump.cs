@@ -8,7 +8,7 @@ namespace RunnerOOP.Movements
     {
         Rigidbody _playerRigidbody;
         float _jumpForce=1f;
-       
+        
         public Jump(Rigidbody playerRigidbody)
         {
             _playerRigidbody = playerRigidbody;
@@ -17,7 +17,7 @@ namespace RunnerOOP.Movements
 
         public void Jumping()
         {
-            _playerRigidbody.AddForce(Vector3.up*_jumpForce,ForceMode.Impulse);
+             _playerRigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);            
         }
 
     }

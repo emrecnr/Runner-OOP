@@ -7,6 +7,7 @@ namespace RunnerOOP.Abstracts.Inputs
     public interface IInputs
     {
        float Horizontal { get;  }
+       bool IsJump { get; }
     }
 
 }
