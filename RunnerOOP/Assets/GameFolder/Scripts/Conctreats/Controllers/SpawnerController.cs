@@ -9,7 +9,7 @@ namespace RunnerOOP.Controllers
 {
     public class SpawnerController : MonoBehaviour
     {
-        [SerializeField]Transform _spawnPoint;
+        [SerializeField]Transform[] _spawnPoint;
         [SerializeField] GameObject _objectPrefab;
 
         private void Start()
@@ -18,9 +18,11 @@ namespace RunnerOOP.Controllers
         }
         IEnumerator Spawn()
         {
+            
             while (true)
             {
-                Instantiate(_objectPrefab, _spawnPoint.position, _spawnPoint.transform.rotation);
+                Transform randomSpawnPos = _spawnPoint[Random.Range(0, _spawnPoint.Length)]; 
+                Instantiate(_objectPrefab,randomSpawnPos.position,randomSpawnPos.rotation);
                 yield return new WaitForSeconds(3);
             }
 

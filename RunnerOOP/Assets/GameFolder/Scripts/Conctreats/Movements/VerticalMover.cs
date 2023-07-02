@@ -9,7 +9,7 @@ namespace RunnerOOP.Movements
     public class VerticalMover 
     {
         EnemyController _enemyController;
-        float _moveSpeed = 5f;
+        float _moveSpeed = 10f;
         public VerticalMover(EnemyController enemyController)
         {
            _enemyController = enemyController;
@@ -19,6 +19,7 @@ namespace RunnerOOP.Movements
         public void MoveVertical()
         {
             _enemyController.transform.Translate(Vector3.back*_moveSpeed*Time.deltaTime);
+            
         }
 
 
