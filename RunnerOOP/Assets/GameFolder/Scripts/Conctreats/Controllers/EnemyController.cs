@@ -1,3 +1,4 @@
+using RunnerOOP.Managers;
 using RunnerOOP.Movements;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace RunnerOOP.Controllers
         }
         private void FixedUpdate()
         {
+            if (GameManager.Instance.IsGamePause) { return; }
             _mover.MoveVertical();
         }
 

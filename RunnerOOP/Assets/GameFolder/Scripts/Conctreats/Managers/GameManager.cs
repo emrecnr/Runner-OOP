@@ -1,4 +1,5 @@
 using RunnerOOP.Abstracts.Utilities;
+using RunnerOOP.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,20 +9,29 @@ namespace RunnerOOP.Managers
 {
     public class GameManager : SingletonObject<GameManager>
     {
-        private bool _isGameOver;
-        public bool IsGameOver => _isGameOver;
-
+        
         public event System.Action OnGameStop;
+        public event System.Action OnGamePause;
+
+        bool _isGamePause;
+
+        public bool IsGamePause
+        {
+            get { return _isGamePause; }
+            set { _isGamePause = value; }
+        }
+
         private void Awake()
         {
             CheckInstance(this);
+            
             
         }
 
         public void StopGame()
         {
             OnGameStop?.Invoke();
-            Time.timeScale = 0;
+            _isGamePause = true;
             
         }
         public void QuitGame()
@@ -29,11 +39,13 @@ namespace RunnerOOP.Managers
             Application.Quit();
             
         }
+
         
-        
-        public void LoadScene(int sceneIndex)
+
+        public void LoadScene(string sceneName)
         {
-            SceneManager.LoadScene(sceneIndex);
+            SceneManager.LoadScene(sceneName);
+            _isGamePause = false;
         }
     }
 

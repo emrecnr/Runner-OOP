@@ -13,11 +13,11 @@ namespace RunnerOOP.Abstracts.Utilities
             if (Instance == null)
             {
                 Instance = entity;
-                DontDestroyOnLoad(this.gameObject);
+                DontDestroyOnLoad(gameObject);
             }
             else
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
 

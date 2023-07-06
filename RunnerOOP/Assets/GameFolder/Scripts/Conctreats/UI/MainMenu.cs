@@ -8,11 +8,11 @@ namespace RunnerOOP.UI
 {
     public class MainMenu : MonoBehaviour
     {
-        private int nextScene = 1;
+        private string _nextScene = "Game";
 
         private float skyboxSpeed = 10f;
-            
 
+       
         private void Update()
         {
             //rotate skybox background
@@ -21,7 +21,8 @@ namespace RunnerOOP.UI
         
         public void PlayButton()
         {
-            GameManager.Instance.LoadScene(nextScene);
+            GameManager.Instance.LoadScene(_nextScene);
+            
         }
         public void QuitButton()
         {

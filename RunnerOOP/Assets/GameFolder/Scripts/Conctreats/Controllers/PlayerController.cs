@@ -29,13 +29,15 @@ namespace RunnerOOP.Controllers
 
         private void Update()
         {
-            
+            if (GameManager.Instance.IsGamePause) return;
+
             _mover.Move(_inputs.Horizontal);
             Debug.Log(_inputs.IsJump);
             
         }
         private void FixedUpdate()
         {
+            if (GameManager.Instance.IsGamePause) return;
             if (_inputs.IsJump)
             {
                 _jump.Jumping();

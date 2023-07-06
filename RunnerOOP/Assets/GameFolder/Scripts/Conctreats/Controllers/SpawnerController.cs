@@ -1,3 +1,4 @@
+using RunnerOOP.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -19,7 +20,7 @@ namespace RunnerOOP.Controllers
         IEnumerator Spawn()
         {
             
-            while (true)
+            while (!GameManager.Instance.IsGamePause)
             {
                 Transform randomSpawnPos = _spawnPoint[Random.Range(0, _spawnPoint.Length)]; 
                 Instantiate(_objectPrefab,randomSpawnPos.position,randomSpawnPos.rotation);
