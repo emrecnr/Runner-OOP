@@ -29,6 +29,7 @@ namespace RunnerOOP.UI
         public void MainMenu()
         {
             GameManager.Instance.LoadScene(_mainMenuSceneName);
+            AudioManager.Instance.CheckGameStatus(_mainMenuSceneName);
         }
         public void RetryGame()
         {
@@ -38,6 +39,10 @@ namespace RunnerOOP.UI
         public void QuitGame()
         {
             GameManager.Instance.QuitGame();
+        }
+        public void MuteMusic()
+        {
+            AudioManager.Instance.MuteMusic();
         }
 
     }

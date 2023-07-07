@@ -14,6 +14,8 @@ namespace RunnerOOP.Managers
         public event System.Action OnGamePause;
 
         bool _isGamePause;
+        bool _isGameOver;
+        
 
         public bool IsGamePause
         {
@@ -21,6 +23,13 @@ namespace RunnerOOP.Managers
             set { _isGamePause = value; }
         }
 
+        public bool IsGameOver 
+        {
+            get { return _isGameOver; }
+            set { _isGameOver = value; }
+        
+        
+        }
         private void Awake()
         {
             CheckInstance(this);
@@ -39,7 +48,8 @@ namespace RunnerOOP.Managers
             Application.Quit();
             
         }
-
+        
+       
         
 
         public void LoadScene(string sceneName)

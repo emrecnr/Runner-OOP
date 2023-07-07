@@ -22,12 +22,18 @@ namespace RunnerOOP.UI
         public void PlayButton()
         {
             GameManager.Instance.LoadScene(_nextScene);
-            
+            AudioManager.Instance.CheckGameStatus(_nextScene);
         }
         public void QuitButton()
         {
             // Application.Quit();
             GameManager.Instance.QuitGame();
+        }
+        public void MuteButton()
+        {
+            
+            AudioManager.Instance.MuteMusic();
+
         }
        
         

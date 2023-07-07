@@ -49,6 +49,7 @@ namespace RunnerOOP.Controllers
             if (other.gameObject.CompareTag("Obstacles"))
             {
                 GameManager.Instance.StopGame();
+                GameManager.Instance.IsGameOver = true;
             }
         }
 
