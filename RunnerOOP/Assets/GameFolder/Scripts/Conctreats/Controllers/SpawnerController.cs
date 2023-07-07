@@ -10,27 +10,58 @@ namespace RunnerOOP.Controllers
 {
     public class SpawnerController : MonoBehaviour
     {
-        [SerializeField]Transform[] _spawnPoint;
-        [SerializeField] GameObject _objectPrefab;
+        [SerializeField]Transform[] _spawnPoints;
+        [SerializeField] GameObject[] _obstaclesPrefabs;
+        [SerializeField] GameObject[] _coinPrefabs;
+
 
         private void Start()
         {
             StartCoroutine(Spawn());
+            
         }
         IEnumerator Spawn()
         {
             
             while (!GameManager.Instance.IsGamePause)
             {
-                Transform randomSpawnPos = _spawnPoint[Random.Range(0, _spawnPoint.Length)]; 
-                Instantiate(_objectPrefab,randomSpawnPos.position,randomSpawnPos.rotation);
-                yield return new WaitForSeconds(3);
-            }
+                SpawnCoins();
+                
+                yield return new WaitForSeconds(2);
 
-            
+                SpawnObstacles();
+
+                yield return new WaitForSeconds(2);
+            }
         }
 
+        private void SpawnCoins()
+        {
+            Transform randomSpawnPos = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
+            GameObject randomCoin = _coinPrefabs[Random.Range(0, _coinPrefabs.Length)];
+            Instantiate(randomCoin, randomSpawnPos.position, randomSpawnPos.rotation);
+        } 
+        private void SpawnObstacles()
+        {
+            Transform randomSpawnPos = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
+            GameObject randomObstacles = _obstaclesPrefabs[Random.Range(0, _spawnPoints.Length)];
+            Instantiate(randomObstacles, randomSpawnPos.position, randomSpawnPos.rotation);
+        }
+        //IEnumerator SpawnCoins()
+        //{
+        //    while (!GameManager.Instance.IsGamePause)
+        //    {
+        //        Transform randomSpawnPos = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
+        //        GameObject randomCoin = _coinPrefabs[Random.Range(0, _coinPrefabs.Length)];
+        //        Instantiate(randomCoin, randomSpawnPos.position, randomSpawnPos.rotation);
+        //        yield return new WaitForSeconds(1.5f);
 
+        //    }
+                
+        //}
+        
+
+        
 
     }
 

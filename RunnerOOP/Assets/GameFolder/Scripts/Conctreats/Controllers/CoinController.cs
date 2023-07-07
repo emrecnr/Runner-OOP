@@ -7,23 +7,24 @@ using UnityEngine;
 
 namespace RunnerOOP.Controllers
 {
-    public class EnemyController : MonoBehaviour
+
+    public class CoinController : MonoBehaviour
     {
         VerticalMover _mover;
 
         float _moveSpeed = 10f;
-
         private void Awake()
         {
-            _mover = new VerticalMover(this.gameObject);
+            _mover = new VerticalMover(gameObject);
+
         }
+
         private void FixedUpdate()
         {
             if (GameManager.Instance.IsGamePause) { return; }
             _mover.MoveVertical(_moveSpeed);
         }
-
-        
     }
+
 }
 
