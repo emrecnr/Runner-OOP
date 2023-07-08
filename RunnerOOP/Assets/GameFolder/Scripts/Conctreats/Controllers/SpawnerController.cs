@@ -11,8 +11,9 @@ namespace RunnerOOP.Controllers
     public class SpawnerController : MonoBehaviour
     {
         [SerializeField]Transform[] _spawnPoints;
-        [SerializeField] GameObject[] _obstaclesPrefabs;
-        [SerializeField] GameObject[] _coinPrefabs;
+        
+
+        
 
 
         private void Start()
@@ -25,41 +26,33 @@ namespace RunnerOOP.Controllers
             
             while (!GameManager.Instance.IsGamePause)
             {
-                SpawnCoins();
-                
-                yield return new WaitForSeconds(2);
+                Debug.Log(GetRandomPoolIndex());
+                GameObject obj = PoolManager.Instance.GetPooledObject(GetRandomPoolIndex());//PoolManager'dan gelen Method'a rastgele havuz sayýsýný gonder
 
-                SpawnObstacles();
-
+                obj.transform.position = GetRandomSpawnPosition();
                 yield return new WaitForSeconds(2);
             }
         }
-
-        private void SpawnCoins()
-        {
-            Transform randomSpawnPos = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
-            GameObject randomCoin = _coinPrefabs[Random.Range(0, _coinPrefabs.Length)];
-            Instantiate(randomCoin, randomSpawnPos.position, randomSpawnPos.rotation);
-        } 
-        private void SpawnObstacles()
-        {
-            Transform randomSpawnPos = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
-            GameObject randomObstacles = _obstaclesPrefabs[Random.Range(0, _spawnPoints.Length)];
-            Instantiate(randomObstacles, randomSpawnPos.position, randomSpawnPos.rotation);
-        }
-        //IEnumerator SpawnCoins()
-        //{
-        //    while (!GameManager.Instance.IsGamePause)
-        //    {
-        //        Transform randomSpawnPos = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
-        //        GameObject randomCoin = _coinPrefabs[Random.Range(0, _coinPrefabs.Length)];
-        //        Instantiate(randomCoin, randomSpawnPos.position, randomSpawnPos.rotation);
-        //        yield return new WaitForSeconds(1.5f);
-
-        //    }
                 
-        //}
+                
+
+                
+        private Vector3 GetRandomSpawnPosition()
+        {
+            Vector3 randomSpawnPosition = _spawnPoints[Random.Range(0,_spawnPoints.Length)].position;
+
+            return randomSpawnPosition;
+        }
+        private int GetRandomPoolIndex()
+        {
+            int randomPoolIndex = Random.Range(0, PoolManager.Instance.PoolsLength);
+
+            return randomPoolIndex;
+        }
+
+       
         
+
 
         
 

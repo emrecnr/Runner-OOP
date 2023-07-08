@@ -28,23 +28,20 @@ namespace RunnerOOP.Managers
 
 
         }
-        
         public void CheckGameStatus(string sceneName)
         {
-
-            if (sceneName=="Game")
+            if (sceneName == "Game")
             {
-                _audioSource.clip = _gameAudioCip;
-                
+                _audioSource.clip = _gameAudioCip;  
+
             }
-            else if (sceneName=="MainMenu")
+            else if (sceneName == "MainMenu")
             {
                 _audioSource.clip = _menuAuidoClip;
-                
             }
             _audioSource.Play();
-
         }
+        
         public void MuteMusic()
         {
             _isPressMute = !_isPressMute;
