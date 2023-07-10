@@ -1,4 +1,5 @@
 using RunnerOOP.Abstracts.Inputs;
+using RunnerOOP.Controllers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,33 +10,34 @@ namespace RunnerOOP.Inputs
 {
     public class InputReader : IInputs
     {
-        float _horizontal;
+        
         bool _isJump;
-        PlayerInput _playerInput;
-        public float Horizontal => _horizontal;
+        PlayerController _playerController;
+        
 
         public bool IsJump => _isJump;
-
-        public InputReader(PlayerInput playerInput)
+        
+        public InputReader(PlayerController playerController)
         {
-            _playerInput = playerInput;
-            _playerInput.currentActionMap.actions[0].performed += OnHorizontalMove;
-            _playerInput.currentActionMap.actions[1].performed += OnJump;
-        }
+            _playerController = playerController;
 
-        private void OnJump(InputAction.CallbackContext context)
-        {
-
-            _isJump = context.ReadValueAsButton();
         }
+        
+        
+        //private void OnJump(InputAction.CallbackContext context)
+        //{
 
-        private void OnHorizontalMove(InputAction.CallbackContext context)
-        {
-            _horizontal = context.ReadValue<float>();
-        }
+        //    _isJump = context.ReadValueAsButton();
+        //}
+
+        //private void OnHorizontalMove(InputAction.CallbackContext context)
+        //{
+        //    _horizontal = context.ReadValue<float>();
+        //}
 
 
     }
 
 }
+    
 

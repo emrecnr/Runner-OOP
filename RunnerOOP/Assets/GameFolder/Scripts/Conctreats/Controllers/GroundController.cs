@@ -14,11 +14,12 @@ namespace RunnerOOP.Controllers
         private void Awake()
         {
             _material = GetComponentInChildren<MeshRenderer>().material;
+            
         }
 
         private void Update()
         {
-            _material.mainTextureOffset += Vector2.down * _moveSpeed * Time.deltaTime;
+            _material.mainTextureOffset += Vector2.up * _moveSpeed * Time.deltaTime;
         }
     }
 

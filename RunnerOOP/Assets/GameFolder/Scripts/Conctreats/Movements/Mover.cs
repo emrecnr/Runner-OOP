@@ -8,19 +8,98 @@ namespace RunnerOOP.Movements
     public class Mover
     {
         PlayerController _playerController;
-        float _moveSpeed = 5f;
+        
+        float _moveSpeed = 80f;
+        int currentLine = 1;
+        int nextLine;
+        float deltaX;
+        float deltaY;
+        private bool isSwipeInProgress = false;
+        
+
         public Mover(PlayerController playerController)
         {
             _playerController = playerController;
+            
         }
-        public void Move(float horizontalInput)
-        {
-            if (horizontalInput==0) { return; }
-            _playerController.transform.Translate(Vector3.right*horizontalInput*_moveSpeed*Time.deltaTime);
-        }
-    }
 
+
+        public void CheckLineAndMove()
+        {
+            CheckTouchDeltaPositionX();
+            Vector3 targetPosition = _playerController.transform.position;
+
+            if (currentLine == 0)
+            {
+                targetPosition.x = -1.3f;
+            }
+            else if (currentLine == 1)
+            {
+                targetPosition.x = 0f;
+            }
+            else if (currentLine == 2)
+            {
+                targetPosition.x = 1.3f;
+            }
+            Debug.Log(targetPosition.x);
+
+            _playerController.transform.position = Vector3.Lerp(_playerController.transform.position, targetPosition, _moveSpeed * Time.deltaTime);
+        }
+
+        private void CheckTouchDeltaPositionX()
+        {
+            
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Began)
+                {
+                    isSwipeInProgress = true;
+                    
+                }
+
+
+
+                else if (touch.phase == TouchPhase.Moved&&isSwipeInProgress)
+                {
+                    deltaX = touch.deltaPosition.x;
+                    deltaY = touch.deltaPosition.y;
+
+                    if (deltaX > 100f)
+                    {
+                        currentLine++;
+                        if (currentLine == 3)
+                        {
+                            currentLine = 2;
+                        }
+                        isSwipeInProgress = false;
+
+                    }
+                    else if (deltaX < -100f)
+                    {
+                        currentLine--;
+                        if (currentLine == -1)
+                        {
+                            currentLine = 0;
+                        }
+                        isSwipeInProgress = false;
+                    }
+                    
+                        
+
+                    
+                }
+
+               
+
+                
+            }
+        }
+
+
+
+    }
 }
 
-    
+
 

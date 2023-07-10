@@ -2,12 +2,9 @@ using RunnerOOP.Abstracts.Inputs;
 using RunnerOOP.Inputs;
 using RunnerOOP.Managers;
 using RunnerOOP.Movements;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Build.Content;
+
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 namespace RunnerOOP.Controllers
 {
@@ -15,35 +12,36 @@ namespace RunnerOOP.Controllers
     {
         Mover _mover;
         Jump _jump;
-        IInputs _inputs;
+        OnGround _OnGround;
         
+
         
         private void Awake()
         {
-            _mover = new Mover(this);
+            
             _jump = new Jump(GetComponent<Rigidbody>());
-            _inputs = new InputReader(GetComponent<PlayerInput>());
+            _mover = new Mover(this);
+            _OnGround=GetComponentInChildren<OnGround>();
             
         }
 
 
         private void Update()
         {
+            Debug.Log(_OnGround.IsTouchingLayer);
             if (GameManager.Instance.IsGamePause) return;
-
-            _mover.Move(_inputs.Horizontal);
-            Debug.Log(_inputs.IsJump);
-            
+            _mover.CheckLineAndMove();
         }
         private void FixedUpdate()
         {
             if (GameManager.Instance.IsGamePause) return;
-            if (_inputs.IsJump)
-            {
-                _jump.Jumping();
-            }
+            
+            _jump.CheckJumpState(_OnGround.IsTouchingLayer);
+                
+            
+            
+            
         }
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Obstacles"))
@@ -53,7 +51,12 @@ namespace RunnerOOP.Controllers
             }
         }
 
+            
+            
+            
 
+
+         
 
 
     }
