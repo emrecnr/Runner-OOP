@@ -1,3 +1,4 @@
+using RunnerOOP.Animations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +14,16 @@ namespace RunnerOOP.Movements
 
 
         Rigidbody _playerRigidbody;
-        float _jumpForce = 3f;
+        PlayerAnimations _playerAnimations;
+        float _jumpForce = 300f;
         float _deltaY;
-
-        public Jump(Rigidbody playerRigidbody)
+        bool _jump;
+        
+        public Jump(Rigidbody playerRigidbody, PlayerAnimations playerAnimations)
         {
             _playerRigidbody = playerRigidbody;
+            _playerAnimations = playerAnimations;
+            Debug.Log(_playerAnimations);
         }
 
 
@@ -26,45 +31,77 @@ namespace RunnerOOP.Movements
         {
 
 
-            _playerRigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-
-
+            _playerRigidbody.AddForce(Vector3.up * _jumpForce);
 
         }
 
+
+
+
+
+
+        private void Animations()
+        {
+            _playerAnimations.SetTriggerJump();
+            Debug.Log("222");
+            //_playerAnimations.ResetTriggerJump();
+        }
         public void CheckJumpState(bool canJump)
         {
+
+
             if (canJump)
             {
+
                 if (Input.touchCount > 0)
                 {
                     Touch touch = Input.GetTouch(0);
 
-
-                    if (touch.phase == TouchPhase.Moved)
+                    if (touch.phase == TouchPhase.Began)
                     {
-                        _deltaY = touch.deltaPosition.y;
-                        if (_deltaY > 0)
-                        {
-
-
-
-
-
-                            Jumping();
-                            
-
-                        }
+                        Debug.Log("began");
+                        _jump = true;
+                        
 
                     }
-                    
+
+                   else if (touch.phase == TouchPhase.Moved&&_jump)
+                    {
+                        Debug.Log("moved");
+                        _deltaY = touch.deltaPosition.y;
+                        if (_deltaY > 5)
+                        {
+                            _deltaY = 0;
+                            Animations();
+                            Jumping();
+                            _jump = false;
+                        }
+
+
+
+
+
+                    }
+
 
                 }
             }
-            
+
         }
 
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 

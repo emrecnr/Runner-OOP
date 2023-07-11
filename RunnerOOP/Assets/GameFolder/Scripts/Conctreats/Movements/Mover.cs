@@ -9,7 +9,7 @@ namespace RunnerOOP.Movements
     {
         PlayerController _playerController;
         
-        float _moveSpeed = 80f;
+        float _moveSpeed = 40f;
         int currentLine = 1;
         int nextLine;
         float deltaX;
@@ -41,7 +41,7 @@ namespace RunnerOOP.Movements
             {
                 targetPosition.x = 1.3f;
             }
-            Debug.Log(targetPosition.x);
+            
 
             _playerController.transform.position = Vector3.Lerp(_playerController.transform.position, targetPosition, _moveSpeed * Time.deltaTime);
         }
@@ -62,10 +62,11 @@ namespace RunnerOOP.Movements
 
                 else if (touch.phase == TouchPhase.Moved&&isSwipeInProgress)
                 {
+                    
                     deltaX = touch.deltaPosition.x;
                     deltaY = touch.deltaPosition.y;
 
-                    if (deltaX > 100f)
+                    if (deltaX > 10f)
                     {
                         currentLine++;
                         if (currentLine == 3)
@@ -75,7 +76,7 @@ namespace RunnerOOP.Movements
                         isSwipeInProgress = false;
 
                     }
-                    else if (deltaX < -100f)
+                    else if (deltaX < -10f)
                     {
                         currentLine--;
                         if (currentLine == -1)

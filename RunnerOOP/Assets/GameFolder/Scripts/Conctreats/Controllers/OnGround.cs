@@ -5,7 +5,7 @@ using UnityEngine;
 public class OnGround : MonoBehaviour
 {
     
-        private bool isTouchingLayer;
+        private bool isTouchingLayer=true;
 
     public bool IsTouchingLayer 
     {
@@ -21,6 +21,7 @@ public class OnGround : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isTouchingLayer = true;
+            
         }
 
         
@@ -30,6 +31,7 @@ public class OnGround : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isTouchingLayer = false;
+           
         }
     }
 

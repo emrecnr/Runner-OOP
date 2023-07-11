@@ -15,7 +15,9 @@ namespace RunnerOOP.Managers
 
         bool _isGamePause;
         bool _isGameOver;
-        
+        string _activeSceneName;
+        public string ActiveScene => _activeSceneName;
+
 
         public bool IsGamePause
         {
@@ -33,6 +35,7 @@ namespace RunnerOOP.Managers
         private void Awake()
         {
             CheckInstance(this);
+            
             
             
         }
@@ -55,7 +58,9 @@ namespace RunnerOOP.Managers
         public void LoadScene(string sceneName)
         {
             SceneManager.LoadScene(sceneName);
+            _activeSceneName = sceneName;
             _isGamePause = false;
+            Debug.Log(_activeSceneName);
         }
     }
 

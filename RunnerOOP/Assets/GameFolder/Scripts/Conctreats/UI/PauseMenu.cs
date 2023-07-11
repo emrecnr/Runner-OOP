@@ -11,30 +11,35 @@ namespace RunnerOOP.UI
         [SerializeField] GameObject _pauseMenuPanel;
         private string _mainMenuSceneName = "MainMenu";
         private string _gameSceneName = "Game";
+        
         private void Awake()
         {
             _pauseMenuPanel.SetActive(false);
         }
         public void PauseGame()
         {
-
-            _pauseMenuPanel?.SetActive(true);
             GameManager.Instance.IsGamePause = true;
+            _pauseMenuPanel?.SetActive(true);
+           
         }
         public void ResumeGame()
         {
-            _pauseMenuPanel?.SetActive(false);
             GameManager.Instance.IsGamePause = false;
+            _pauseMenuPanel?.SetActive(false);
+            
         }
         public void MainMenu()
         {
             GameManager.Instance.LoadScene(_mainMenuSceneName);
             AudioManager.Instance.CheckGameStatus(_mainMenuSceneName);
+            PoolManager.Instance.ResetObjects();
         }
         public void RetryGame()
         {
             GameManager.Instance.LoadScene(_gameSceneName);
-            
+            PoolManager.Instance.ResetObjects();
+
+
         }
         public void QuitGame()
         {

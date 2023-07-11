@@ -1,4 +1,5 @@
 using RunnerOOP.Abstracts.Inputs;
+using RunnerOOP.Animations;
 using RunnerOOP.Inputs;
 using RunnerOOP.Managers;
 using RunnerOOP.Movements;
@@ -13,30 +14,34 @@ namespace RunnerOOP.Controllers
         Mover _mover;
         Jump _jump;
         OnGround _OnGround;
+        PlayerAnimations _playerAnimations;
         
 
         
         private void Awake()
         {
-            
-            _jump = new Jump(GetComponent<Rigidbody>());
+            _playerAnimations = new PlayerAnimations(GetComponent<Animator>());
+            _jump = new Jump(GetComponent<Rigidbody>(),_playerAnimations);
             _mover = new Mover(this);
             _OnGround=GetComponentInChildren<OnGround>();
             
+
         }
 
 
         private void Update()
         {
-            Debug.Log(_OnGround.IsTouchingLayer);
+           
             if (GameManager.Instance.IsGamePause) return;
             _mover.CheckLineAndMove();
+
+            _jump.CheckJumpState(_OnGround.IsTouchingLayer);
         }
         private void FixedUpdate()
         {
             if (GameManager.Instance.IsGamePause) return;
             
-            _jump.CheckJumpState(_OnGround.IsTouchingLayer);
+            
                 
             
             

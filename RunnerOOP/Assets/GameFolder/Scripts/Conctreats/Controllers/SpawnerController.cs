@@ -11,32 +11,39 @@ namespace RunnerOOP.Controllers
     public class SpawnerController : MonoBehaviour
     {
         [SerializeField]Transform[] _spawnPoints;
-        
-
-        
-
-
+        Coroutine spawnCoroutine;
         private void Start()
         {
-            StartCoroutine(Spawn());
             
+            StartCoroutine(Spawn());
+
         }
+        
         IEnumerator Spawn()
         {
-            
-            while (!GameManager.Instance.IsGamePause)
+
+            while (true)
             {
-                Debug.Log(GetRandomPoolIndex());
-                GameObject obj = PoolManager.Instance.GetPooledObject(GetRandomPoolIndex());//PoolManager'dan gelen Method'a rastgele havuz sayýsýný gonder
+                if (!GameManager.Instance.IsGamePause && GameManager.Instance.ActiveScene != "MainMenu")
+                {
+                    GameObject obj = PoolManager.Instance.GetPooledObject(GetRandomPoolIndex());
+                    obj.transform.position = GetRandomSpawnPosition();
 
-                obj.transform.position = GetRandomSpawnPosition();
-                yield return new WaitForSeconds(2);
+                    yield return new WaitForSeconds(1);
+                    GameObject coin = PoolManager.Instance.GetCoinObject(GetRandomPoolIndex());
+                    coin.transform.position = GetRandomSpawnPosition();
+
+
+                    yield return new WaitForSeconds(2);
+
+                }
+                else
+                {
+                    yield return null;
+                }
             }
-        }
-                
-                
 
-                
+        }
         private Vector3 GetRandomSpawnPosition()
         {
             Vector3 randomSpawnPosition = _spawnPoints[Random.Range(0,_spawnPoints.Length)].position;
@@ -49,6 +56,14 @@ namespace RunnerOOP.Controllers
 
             return randomPoolIndex;
         }
+
+        
+
+
+                
+                
+
+                
 
        
         

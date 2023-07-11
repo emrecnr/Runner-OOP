@@ -7,7 +7,7 @@ namespace RunnerOOP.Controllers
 {
     public class GroundController : MonoBehaviour
     {
-        float _moveSpeed = .5f;
+       float _moveSpeed = 2.50f;
 
         Material _material;
 
