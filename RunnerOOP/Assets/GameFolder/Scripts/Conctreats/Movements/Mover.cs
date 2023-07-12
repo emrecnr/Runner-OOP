@@ -9,7 +9,7 @@ namespace RunnerOOP.Movements
     {
         PlayerController _playerController;
         
-        float _moveSpeed = 40f;
+        float _moveSpeed = 20f;
         int currentLine = 1;
         int nextLine;
         float deltaX;
@@ -31,7 +31,7 @@ namespace RunnerOOP.Movements
 
             if (currentLine == 0)
             {
-                targetPosition.x = -1.3f;
+                targetPosition.x = -3;
             }
             else if (currentLine == 1)
             {
@@ -39,7 +39,7 @@ namespace RunnerOOP.Movements
             }
             else if (currentLine == 2)
             {
-                targetPosition.x = 1.3f;
+                targetPosition.x = 3;
             }
             
 

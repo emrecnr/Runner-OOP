@@ -3,7 +3,7 @@ using RunnerOOP.Animations;
 using RunnerOOP.Inputs;
 using RunnerOOP.Managers;
 using RunnerOOP.Movements;
-
+using System.Collections;
 using UnityEngine;
 
 
@@ -15,6 +15,7 @@ namespace RunnerOOP.Controllers
         Jump _jump;
         OnGround _OnGround;
         PlayerAnimations _playerAnimations;
+        
         
 
         
@@ -29,39 +30,50 @@ namespace RunnerOOP.Controllers
         }
 
 
+        private void Start()
+        {
+            StartCoroutine(StartAnimation());
+        }
         private void Update()
         {
            
-            if (GameManager.Instance.IsGamePause) return;
+            
             _mover.CheckLineAndMove();
 
             _jump.CheckJumpState(_OnGround.IsTouchingLayer);
-        }
-        private void FixedUpdate()
-        {
-            if (GameManager.Instance.IsGamePause) return;
-            
-            
-                
-            
-            
             
         }
+        
+        
         private void OnTriggerEnter(Collider other)
         {
+            if (GameManager.Instance.IsGamePause || GameManager.Instance.IsGameOver) return;
             if (other.gameObject.CompareTag("Obstacles"))
             {
                 GameManager.Instance.StopGame();
                 GameManager.Instance.IsGameOver = true;
+                _playerAnimations.FallAnimation();
+            }
+            if (other.gameObject.CompareTag("Coin"))
+            {
+                ScoreManager.Instance.UpdateScore();
+                Destroy(other.gameObject);
             }
         }
+        IEnumerator StartAnimation()
+        {
+            _playerAnimations.SetTriggerStartAnimation();
+            yield return new WaitForSeconds(1.2f);
+            GameManager.Instance.IsGameOver = false;
+            yield return null;
 
-            
-            
-            
+        }
 
 
-         
+
+
+
+
 
 
     }

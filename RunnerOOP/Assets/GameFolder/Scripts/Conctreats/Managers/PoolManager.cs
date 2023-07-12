@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Purchasing;
 
 namespace RunnerOOP.Managers
 {
@@ -14,9 +14,9 @@ namespace RunnerOOP.Managers
         public struct Pool
         {
             public Queue<GameObject> pooledObject;
-            public Queue<GameObject> coinPool;
+            
             public GameObject objectPrefabs;
-            public GameObject coinPrefab;
+            
             public int _poolSize;
             public Transform parentTransform;
         }
@@ -42,14 +42,8 @@ namespace RunnerOOP.Managers
 
             return obj;
         }
-        public GameObject GetCoinObject(int objectType)
-        {
-            GameObject coin = pools[objectType].coinPool.Dequeue();
-            coin.SetActive(true);
-            pools[objectType].coinPool.Enqueue(coin);
-            return coin;
-        }
-
+       
+        
         public void PoolState()
         {
             for (int i = 0; i < pools.Length; i++)
@@ -61,13 +55,8 @@ namespace RunnerOOP.Managers
                     obj.SetActive(false);
                     pools[i].pooledObject.Enqueue(obj);
                 }
-                pools[i].coinPool = new Queue<GameObject>();
-                for (int j = 0; j < pools[i]._poolSize; j++)
-                {
-                    GameObject coin = Instantiate(pools[i].coinPrefab, pools[i].parentTransform);
-                    coin.SetActive(false);
-                    pools[i].coinPool.Enqueue(coin);
-                }
+                
+                
             }
         }
        
@@ -80,11 +69,7 @@ namespace RunnerOOP.Managers
                     obj.SetActive(false);
                     // Baslangýç pozisyonuna sifirla
                 }
-                foreach (GameObject coin in pools[i].coinPool)
-                {
-                    coin.SetActive(false);
-                    // Baslangýç pozisyonuna sifirla
-                }
+                
             }
 
         }

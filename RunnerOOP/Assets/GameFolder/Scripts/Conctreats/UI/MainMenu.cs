@@ -1,3 +1,4 @@
+using RunnerOOP.Animations;
 using RunnerOOP.Managers;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace RunnerOOP.UI
         {
             GameManager.Instance.LoadScene(_nextScene);
             AudioManager.Instance.CheckGameStatus(_nextScene);
+            
         }
         public void QuitButton()
         {

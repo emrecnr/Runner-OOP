@@ -1,3 +1,4 @@
+using RunnerOOP.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,15 @@ namespace RunnerOOP.Animations
 
             _playerAnimator.SetTrigger("isJump");
             
+        }
+        public void SetTriggerStartAnimation()
+        {
+            _playerAnimator.SetTrigger("isGameStart");
+            
+        }
+        public void FallAnimation()
+        {
+            _playerAnimator.SetTrigger("Fall");
         }
         public void ResetTriggerJump()
         {

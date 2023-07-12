@@ -3,6 +3,7 @@ using RunnerOOP.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RunnerOOP.Managers
 {
@@ -11,7 +12,9 @@ namespace RunnerOOP.Managers
         AudioSource _audioSource;
         AudioClip _menuAuidoClip;
         [SerializeField] AudioClip _gameAudioCip;
-
+        
+        
+        
         bool _isPressMute ;
         public bool IsPressMute
         {
@@ -25,6 +28,7 @@ namespace RunnerOOP.Managers
             _isPressMute = false;
             _audioSource = GetComponent<AudioSource>();
             _menuAuidoClip=_audioSource.clip;
+            
 
 
         }
@@ -41,11 +45,13 @@ namespace RunnerOOP.Managers
             }
             _audioSource.Play();
         }
-        
+       
         public void MuteMusic()
         {
             _isPressMute = !_isPressMute;
             _audioSource.mute = _isPressMute;
+            
+            
         }
 
 

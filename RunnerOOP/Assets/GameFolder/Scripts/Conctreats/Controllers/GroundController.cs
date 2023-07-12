@@ -1,3 +1,4 @@
+using RunnerOOP.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,10 @@ namespace RunnerOOP.Controllers
 
         private void Update()
         {
+            if (GameManager.Instance.IsGameOver||GameManager.Instance.IsGamePause)
+            {
+                return;
+            }
             _material.mainTextureOffset += Vector2.up * _moveSpeed * Time.deltaTime;
         }
     }

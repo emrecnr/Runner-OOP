@@ -14,7 +14,7 @@ namespace RunnerOOP.Managers
         public event System.Action OnGamePause;
 
         bool _isGamePause;
-        bool _isGameOver;
+        bool _isGameOver= true;
         string _activeSceneName;
         public string ActiveScene => _activeSceneName;
 
@@ -60,7 +60,12 @@ namespace RunnerOOP.Managers
             SceneManager.LoadScene(sceneName);
             _activeSceneName = sceneName;
             _isGamePause = false;
-            Debug.Log(_activeSceneName);
+            if (!_isGameOver)
+            {
+                _isGameOver = true;
+
+            }
+            
         }
     }
 

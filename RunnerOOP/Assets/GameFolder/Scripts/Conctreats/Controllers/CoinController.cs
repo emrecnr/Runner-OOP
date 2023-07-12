@@ -21,8 +21,18 @@ namespace RunnerOOP.Controllers
 
         private void FixedUpdate()
         {
-            if (GameManager.Instance.IsGamePause) { return; }
+            if (GameManager.Instance.IsGamePause ||GameManager.Instance.IsGameOver) { return; }
             _mover.MoveVertical(_moveSpeed);
+        }
+        
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Obstacles"))
+            {
+                Debug.Log("Destroy");
+                Destroy(this.gameObject);
+
+            }
         }
     }
 

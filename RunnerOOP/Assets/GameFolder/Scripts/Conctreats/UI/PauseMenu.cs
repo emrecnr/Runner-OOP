@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RunnerOOP.UI
 {
@@ -11,10 +12,13 @@ namespace RunnerOOP.UI
         [SerializeField] GameObject _pauseMenuPanel;
         private string _mainMenuSceneName = "MainMenu";
         private string _gameSceneName = "Game";
-        
+        [SerializeField] Sprite _musicOffSprite;
+        private Sprite _musicOnImage;
+        [SerializeField] Image _musicButtonImage;
         private void Awake()
         {
             _pauseMenuPanel.SetActive(false);
+            _musicOnImage = _musicButtonImage.sprite;
         }
         public void PauseGame()
         {
@@ -47,7 +51,17 @@ namespace RunnerOOP.UI
         }
         public void MuteMusic()
         {
-            AudioManager.Instance.MuteMusic();
+           
+           AudioManager.Instance.MuteMusic();
+           if (AudioManager.Instance.IsPressMute)
+            {
+                _musicButtonImage.sprite = _musicOffSprite;
+            }
+            else
+            {
+                _musicButtonImage.sprite = _musicOnImage;
+            }
+            
         }
 
     }

@@ -1,4 +1,5 @@
 using RunnerOOP.Animations;
+using RunnerOOP.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,13 +43,14 @@ namespace RunnerOOP.Movements
 
         private void Animations()
         {
+            if (GameManager.Instance.IsGameOver) { return; }
             _playerAnimations.SetTriggerJump();
-            Debug.Log("222");
-            //_playerAnimations.ResetTriggerJump();
+            
+            
         }
         public void CheckJumpState(bool canJump)
         {
-
+            if (GameManager.Instance.IsGameOver||GameManager.Instance.IsGamePause) { return; }
 
             if (canJump)
             {
